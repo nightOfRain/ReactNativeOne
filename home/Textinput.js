@@ -15,10 +15,52 @@ import {
 	TouchableOpacity,
 	TouchableNativeFeedback,
 	TouchableWithoutFeedback,
+	ToastAndroid,
 	View
 } from 'react-native';
 
 export default class PizzaTranslator extends Component {
+	  static navigationOptions = {
+	    title: 'TextInput',
+	    tabBarLabel: 'home-newpage',
+	    //导航栏的Style，设置导航栏的背景颜色
+	    headerStyle: {
+	      backgroundColor:'#8ab7fc',
+	      height:65,
+	      paddingTop:20,
+	    },
+	    //导航栏的title的style
+	    headerTitleStyle: {
+	      color: 'green',
+	      alignSelf: 'center', //alignSelf就是指不用父页面的样式（默认是继承）
+	    },
+	    //右边按钮 - 左边按钮默认是一个箭头，这里就不写了（自定义可以覆盖）
+	    headerRight:(
+	      <View style={{
+	        paddingRight:15,
+	        height:44,
+	        width:55,
+	        justifyContent: 'center',
+	        
+	      }}>
+	        <Button title="点我" 
+	          style={{
+	            fontSize:12,
+	            fontWeight:'bold',
+	            
+	          }}
+	          onpress={()=>{ToastAndroid.show('点我做什么', ToastAndroid.SHORT);}}
+	          >
+	          
+	        </Button>
+	      </View>
+	    ),
+	    headerPressColorAndroid: 'blue', //点击按钮显示的颜色（按住不放时）
+	    headerTintColor: 'red', //返回按钮颜色
+	    gesturesEnabled: true, //是否允许右滑返回，IOS上默认是true,Android默认false
+    
+  };
+
 	constructor(props) {
 		super(props);
 

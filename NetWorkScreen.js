@@ -7,7 +7,10 @@ import {
   Alert,
   Image,
   StyleSheet,
+  Button,
   SectionList,
+  TouchableHighlight,
+  ToastAndroid,
   Text,
   View
 } from 'react-native';
@@ -17,15 +20,49 @@ var MOCKED_MOVIES_DATA = [{
   year: "2015",
   posters: {thumbnail: "http://i.imgur.com/UePbdph.jpg"}
 }];
+var self={};
 var REQUEST_URL = "https://raw.githubusercontent.com/facebook/react-native/0.51-stable/docs/MoviesExample.json";
 
 export default class NetWorkScreen extends Component {
   static navigationOptions = {
     title: 'Hi jone！',
+    tabBarLabel: 'movies',
+    //导航栏的Style，设置导航栏的背景颜色
+    headerStyle: {
+      backgroundColor:'#8ab7fc',
+    },
+    //导航栏的title的style
+    headerTitleStyle: {
+      color: 'green',
+      alignSelf: 'center', //alignSelf就是指不用父页面的样式（默认是继承）
+    },
+    //右边按钮 - 左边按钮默认是一个箭头，这里就不写了（自定义可以覆盖）
+    headerRight:(
+      <View style={{
+        paddingRight:20,
+        
+      }}>
+        <Button title="点我" 
+          style={{
+            fontSize:18,
+            fontWeight:'bold',
+            marginRight:20,
+          }}
+          onpress={()=>{ToastAndroid.show('点我做什么', ToastAndroid.SHORT);}}
+          >
+          
+        </Button>
+      </View>
+    ),
+    headerPressColorAndroid: 'blue', //点击按钮显示的颜色（按住不放时）
+    headerTintColor: 'red', //返回按钮颜色
+    gesturesEnabled: true, //是否允许右滑返回，IOS上默认是true,Android默认false
+    
   };
+  
   constructor(props) {
     super(props);
-  
+    self.props = props;
     this.state = {
       //movies: null, //这里放数据集合
       data: [],
@@ -58,6 +95,7 @@ export default class NetWorkScreen extends Component {
   }
 
   render() {  
+    
     if(!this.state.loaded) {
       return this.renderLoadingView();
     }
@@ -89,16 +127,26 @@ export default class NetWorkScreen extends Component {
     
 
   renderMovie({ item }) {
+    const { navigate } = self.props.navigation;
     return(
       
-      
-      <View style={styles.container}>
+      <TouchableHighlight 
+        onPress={() => 
+              navigate('Animate', {name: 'Animate'})
+            }
+        underlayColor="white">
+          
+      <View style={styles.container} 
+            onPress={() => 
+              navigate('Animate', {name: 'Animate'})
+            }>
         <Image source={{uri: item.posters.thumbnail}} style={styles.thumbnail}/>
         <View style={styles.rightContainer}>
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.year}>{item.year}</Text>
         </View>
       </View>
+      </TouchableHighlight>
       
     );
   }

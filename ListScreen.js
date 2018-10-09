@@ -34,6 +34,7 @@ export default class ListScreen extends Component {
   static navigationOptions = {
     title: 'Welcome',
   };
+
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -44,14 +45,14 @@ export default class ListScreen extends Component {
           <Button
             title="go to Jane's Movie"
             onPress={() => 
-              navigate('Movie', {name: 'Jane'})
+              navigate('NewPage', {name: 'Jane'})
             }
             style={{flex: 1}}
           />
           <Button
             title="go to Jane's Animate"
             onPress={() => 
-              navigate('Animate', {name: 'Jane'})
+              navigate('NewPage', {name: 'Jane'})
             }
             style={{flex: 1}}
           />
@@ -72,6 +73,7 @@ export default class ListScreen extends Component {
           style={{height:40}}
           placeholder="Type here ok"
           onChangeText={(text)=> this.setState({text})}
+          value={this.state.text}
         >
         {this.state.language}
         </TextInput>
